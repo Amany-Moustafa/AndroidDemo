@@ -1,52 +1,32 @@
 package com.mytaxi.android_demo.test;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.intent.Intents;
 import android.support.test.espresso.intent.rule.IntentsTestRule;
-import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.test.runner.AndroidJUnitRunner;
 import android.test.suitebuilder.annotation.LargeTest;
 
-import com.mytaxi.android_demo.App;
-import com.mytaxi.android_demo.R;
-import com.mytaxi.android_demo.TestsApp;
-import com.mytaxi.android_demo.activities.AuthenticationActivity;
-import com.mytaxi.android_demo.activities.DriverProfileActivity;
 import com.mytaxi.android_demo.activities.MainActivity;
 import com.mytaxi.android_demo.data.TestData;
-import com.mytaxi.android_demo.dependencies.component.AppComponent;
-import com.mytaxi.android_demo.models.Driver;
-import com.mytaxi.android_demo.models.User;
 import com.mytaxi.android_demo.pages.DriverPage;
 import com.mytaxi.android_demo.pages.LoginPage;
 import com.mytaxi.android_demo.pages.SearchPage;
-import com.mytaxi.android_demo.utils.network.HttpClient;
-import com.mytaxi.android_demo.utils.storage.SharedPrefStorage;
 
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.util.Date;
-
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.intent.Intents.intended;
-import static android.support.test.espresso.intent.Intents.times;
 import static android.support.test.espresso.intent.matcher.IntentMatchers.hasAction;
 import static android.support.test.espresso.intent.matcher.IntentMatchers.hasComponent;
 import static android.support.test.espresso.intent.matcher.IntentMatchers.hasData;
 import static android.support.test.espresso.intent.matcher.IntentMatchers.toPackage;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static android.support.v4.content.ContextCompat.startActivity;
 import static org.hamcrest.Matchers.allOf;
-
-import javax.inject.Inject;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest

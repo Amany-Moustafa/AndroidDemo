@@ -4,7 +4,6 @@ import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
-import com.mytaxi.android_demo.TestsApp;
 import com.mytaxi.android_demo.activities.MainActivity;
 import com.mytaxi.android_demo.data.TestData;
 import com.mytaxi.android_demo.pages.LoginPage;
@@ -17,8 +16,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
-
-import javax.inject.Inject;
 
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;

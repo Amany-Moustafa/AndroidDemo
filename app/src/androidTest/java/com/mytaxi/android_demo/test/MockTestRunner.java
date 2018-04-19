@@ -1,4 +1,4 @@
-package com.mytaxi.android_demo;
+package com.mytaxi.android_demo.test;
 
 import android.app.Application;
 import android.content.Context;

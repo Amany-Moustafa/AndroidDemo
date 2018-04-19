@@ -1,7 +1,8 @@
-package com.mytaxi.android_demo;
+package com.mytaxi.android_demo.test;
 
 import android.content.Context;
 
+import com.mytaxi.android_demo.App;
 import com.mytaxi.android_demo.dependencies.component.AppComponent;
 import com.mytaxi.android_demo.dependencies.component.DaggerAppComponent;
 import com.mytaxi.android_demo.dependencies.module.NetworkModule;
