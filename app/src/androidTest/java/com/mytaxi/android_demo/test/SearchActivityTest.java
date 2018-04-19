@@ -1,12 +1,15 @@
 package com.mytaxi.android_demo.test;
 
+import android.content.Context;
 import android.content.Intent;
+import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.intent.Intents;
 import android.support.test.espresso.intent.rule.IntentsTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.test.runner.AndroidJUnitRunner;
 import android.test.suitebuilder.annotation.LargeTest;
 
+import com.mytaxi.android_demo.App;
 import com.mytaxi.android_demo.activities.MainActivity;
 import com.mytaxi.android_demo.data.TestData;
 import com.mytaxi.android_demo.pages.DriverPage;
@@ -32,9 +35,6 @@ import static org.hamcrest.Matchers.allOf;
 @LargeTest
 public class SearchActivityTest extends AndroidJUnitRunner {
 
-    LoginPage loginObject;
-    SearchPage searchObject;
-
     @Rule
     public IntentsTestRule<MainActivity> mActivityRule = new IntentsTestRule(MainActivity.class,true,false);
 
@@ -45,26 +45,24 @@ public class SearchActivityTest extends AndroidJUnitRunner {
 
     @Before
     public void setUp(){
-        Intents.init();
+        Context targetContext = InstrumentationRegistry.getInstrumentation()
+              .getTargetContext();
+        TestsApp appComponent = new TestsApp();
+        appComponent.initializeAppComponent().inject(mActivityRule.getActivity());
+        Intent intent = new Intent(targetContext, MainActivity.class);
+        //intent.putExtra("Name", "Value");
+
+        mActivityRule.launchActivity(intent);
+        // Intents.init();
         // AuthenticationActivity.createIntent(MainActivity, AuthenticationActivity.class);
-        mActivityRule.launchActivity(new Intent());
+        // mActivityRule.launchActivity(new Intent());
 
        // intended(hasComponent(MainActivity.class.getName()));
 
-        Intents.release();
+        // Intents.release();
 
-      // User user =  mSharedPrefStorage.loadUser();
-       // mActivityRule.launchActivity(null);
-       // dActivityRule.getActivity();
-        //       // .getSupportFragmentManager().beginTransaction();
-            //Intent intent = new Intent();
-           /* Driver driver=new Driver(TestData.DriverProfile.SarahDriver.getDriverName(),TestData.DriverProfile.SarahDriver.getDriverPhoneNum(),
-                    "ddd",TestData.DriverProfile.SarahDriver.getDriverLocation(), new Date()); */
-            //intent.putExtra("mainactivity",user);
-            //mActivityRule.launchActivity(intent);
-
-        //AppComponent appComponent = App.getApplicationContext(dActivityRule.getClass().).getAppComponent();
-        //appComponent.inject(dActivityRule.launchActivity(intent));
+       // TestsApp appComponent = App.getApplicationContext().getAppComponent();
+       // appComponent.initializeAppComponent();
 
         // to get the intent that started my activity
       //  Bundle bundle = getIntent().getExtras();
@@ -88,18 +86,6 @@ public class SearchActivityTest extends AndroidJUnitRunner {
                 hasAction(Intent.ACTION_DIAL),
                 hasData(TestData.DriverProfile.SarahDriver.getDriverPhoneNum()),
                 toPackage(PACKAGE_ANDROID_DIALER)));
-    }
-
-
-    @Test
-    public void testSearchForDriver(){
-        String username, password;
-        loginObject = new LoginPage();
-        searchObject = new SearchPage();
-        username = TestData.UserLoginData.validUser.getUserName();
-        password = TestData.UserLoginData.validUser.getPassword();
-        loginObject.login(username,password);
-        searchObject.getTextSearch().check(matches(isDisplayed()));
     }
 
 }

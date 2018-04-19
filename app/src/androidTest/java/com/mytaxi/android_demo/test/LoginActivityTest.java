@@ -43,7 +43,7 @@ public class LoginActivityTest {
         username = TestData.UserLoginData.validUser.getUserName();
         password = TestData.UserLoginData.validUser.getPassword();
         loginObject.login(username,password);
-        searchObject.getTextSearch().check(matches(isDisplayed()));
+         searchObject.getTextSearch().check(matches(isDisplayed()));
     }
 
     @After
