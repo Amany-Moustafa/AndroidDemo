@@ -2,7 +2,7 @@ package com.mytaxi.android_demo.data;
 
 public class TestData {
     public enum UserLoginData {
-        validUser("whiteelephant261", "video");
+        validUser("whiteelephant261", "video1");
 
         private String username;
         private String password;

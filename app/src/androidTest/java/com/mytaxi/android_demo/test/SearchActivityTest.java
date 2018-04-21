@@ -20,6 +20,10 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
+
+import javax.inject.Inject;
 
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.intent.Intents.intended;
@@ -31,9 +35,9 @@ import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
 
-@RunWith(AndroidJUnit4.class)
+@RunWith(MockitoJUnitRunner.class)
 @LargeTest
-public class SearchActivityTest extends AndroidJUnitRunner {
+public class SearchActivityTest extends MockTestRunner {
 
     @Rule
     public IntentsTestRule<MainActivity> mActivityRule = new IntentsTestRule(MainActivity.class,true,false);
@@ -45,8 +49,9 @@ public class SearchActivityTest extends AndroidJUnitRunner {
 
     @Before
     public void setUp(){
+
         Context targetContext = InstrumentationRegistry.getInstrumentation()
-              .getTargetContext();
+            .getTargetContext();
         TestsApp appComponent = new TestsApp();
         appComponent.initializeAppComponent().inject(mActivityRule.getActivity());
         Intent intent = new Intent(targetContext, MainActivity.class);
