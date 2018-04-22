@@ -7,24 +7,22 @@ version: 2
 jobs:
   build:
     working_directory: ~/android_demo
-    docker:
-      # Android the primary container
-      - image: circleci/android:api-25-alpha
-    environment:
-      JVM_OPTS: -Xmx3200m
-    steps:
-      - checkout
-      - restore_cache:
-          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
-      - run:
-          name: Accept licenses
-          command: yes | sdkmanager --licenses || true
-      - run:
-          name: chmod permissions
-          command: chmod +x ./gradlew
-      - run:
-          name: Download Dependencies
-          command: ./gradlew androidDependencies
+     docker:
+          - image: circleci/android:api-26-alpha
+        steps:
+          - run:
+              name: Setup emulator
+              command: sdkmanager "system-images;android-22;default;armeabi-v7a" && echo "no" | avdmanager create avd -n test -k "system-images;android-22;default;armeabi-v7a"
+          - run:
+              name: Launch emulator
+              command: export LD_LIBRARY_PATH=${ANDROID_HOME}/emulator/lib64:${ANDROID_HOME}/emulator/lib64/qt/lib && emulator64-arm -avd test -noaudio -no-boot-anim -no-window -accel on
+              background: true
+          - run:
+              name: Run Tests
+              command: ./gradlew :demo:connectedAndroidTest
+          - run:
+              name: Download Dependencies
+              command: ./gradlew androidDependencies
       - save_cache:
           paths:
             - ~/.gradle
@@ -32,9 +30,7 @@ jobs:
   test:
     working_directory: ~/android_demo
     docker:
-        - image: circleci/android:api-25-alpha
-    environment:
-      JVM_OPTS: -Xmx3200m
+        - image: circleci/android:api-26-alpha
     steps:
       - checkout
       - run:
@@ -42,10 +38,10 @@ jobs:
           command: yes | sdkmanager --licenses || true
       - run:
           name: Setup emulator
-          command: sdkmanager "system-images;android-25;google_apis;armeabi-v7a" && echo "no" | avdmanager create avd -n testEmulator -k "system-images;android-25;google_apis;armeabi-v7a"
+          command: sdkmanager "system-images;android-22;default;armeabi-v7a" && echo "no" | avdmanager create avd -n test -k "system-images;android-22;default;armeabi-v7a"
       - run:
           name: Launch emulator
-          command: export LD_LIBRARY_PATH=${ANDROID_HOME}/emulator/lib64:${ANDROID_HOME}/emulator/lib64/qt/lib && emulator64-arm -avd testEmulator -no-audio -no-boot-anim -no-window -accel on
+          command: export LD_LIBRARY_PATH=${ANDROID_HOME}/emulator/lib64:${ANDROID_HOME}/emulator/lib64/qt/lib && emulator64-arm -avd test -noaudio -no-boot-anim -no-window -accel on
           background: true
       - run:
           name: Wait emulator
