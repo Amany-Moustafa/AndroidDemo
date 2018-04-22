@@ -1,4 +1,4 @@
-package com.mytaxi.android_demo.data;
+package com.mytaxi.android_demo.assets;
 
 public class TestData {
     public enum UserLoginData {
